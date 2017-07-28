@@ -66,4 +66,21 @@ class Token extends  DatabaseObject
             http_response_code(405);
         }
     }
+
+    public static function compareTokens($token)
+    {
+        global $database;
+        $sql = "SELECT token FROM " . static::$table_name . " WHERE token='{$token}' LIMIT 1";
+        $database->query($sql);
+        return ($database->affected_rows() == 1) ? true : false;
+
+    }
+
+    public static function deleteToken($token)
+    {
+        global $database;
+        $sql = "DELETE FROM login_tokens WHERE token='{$token}'";
+        $database->query($sql);
+        return ($database->affected_rows() == 1) ? true : false;
+    }
 }
