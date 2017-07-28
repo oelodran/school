@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2017 at 11:29 AM
+-- Generation Time: Jul 28, 2017 at 08:17 AM
 -- Server version: 5.7.9
 -- PHP Version: 7.0.0
 
@@ -44,6 +44,27 @@ INSERT INTO `classes` (`class_id`, `name`) VALUES
 (2, 'B'),
 (3, 'C'),
 (4, 'D');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_tokens`
+--
+
+DROP TABLE IF EXISTS `login_tokens`;
+CREATE TABLE IF NOT EXISTS `login_tokens` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `token` varchar(300) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `login_tokens`
+--
+
+INSERT INTO `login_tokens` (`id`, `user_id`, `token`) VALUES
+(3, 1, 'f14d77716e74bfb247f7a7beb722e1d734ff7650ac5b80bc8da28d0cdf655740925efa317f9ffb11d2c1c6926a4949a6c8427c6004ca9751acae6966eba5f608');
 
 -- --------------------------------------------------------
 
@@ -92,14 +113,14 @@ CREATE TABLE IF NOT EXISTS `students` (
 INSERT INTO `students` (`student_id`, `class_id`, `first_name`, `last_name`) VALUES
 (1, 1, 'Ante', 'Anic'),
 (2, 1, 'Boro', 'Boric'),
-(3, 1, 'Cvita', 'Cbitanovic'),
+(3, 1, 'Cvita', 'Cvitanovic'),
 (4, 2, 'Alan', 'Ford'),
 (5, 2, 'Bob', 'Rock'),
 (6, 2, 'Sir', 'Oliver'),
 (7, 3, 'Broj', 'Jedan'),
 (8, 3, 'Grunf', 'Inovator'),
 (9, 3, 'Jeremija', 'Strasni'),
-(10, 4, 'Hogar', 'Strašni'),
+(10, 4, 'Hogar', 'Strasni'),
 (11, 4, 'Veliki', 'Blek'),
 (12, 4, 'Zagor', 'Tenej');
 
@@ -172,6 +193,30 @@ INSERT INTO `teachers` (`teacher_id`, `first_name`, `last_name`) VALUES
 (2, 'Mali', 'Miš'),
 (3, 'Profesor', 'Okultus'),
 (4, 'Leonardo', 'Ramljak');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`) VALUES
+(1, 'oel', '123', 'Leonardo', 'Ramljak'),
+(14, 'johnsmith', 'abcd12345', 'John', 'Smith');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
