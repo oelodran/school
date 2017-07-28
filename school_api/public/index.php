@@ -1,18 +1,28 @@
 <?php
-require_once('../includes/database.php');
+require_once('../includes/initialize.php');
 
 if($_SERVER['REQUEST_METHOD'] == "GET")
+
 {
-    $result = $database->query("SELECT * FROM students");
-    $test = array();
-    print_r($_GET);
-    while($row = mysqli_fetch_assoc($result))
-        $test[] = $row;
-    print json_encode($test);
+   if ($_GET['url'] == "auth")
+   {
+
+   }
+   elseif ($_GET['url'] == "users")
+   {
+
+   }
 }
 elseif ($_SERVER['REQUEST_METHOD'] == "POST")
 {
-    echo "POST";
+    if ($_GET['url'] == "auth")
+    {
+        Token::auth();
+    }
+}
+elseif ($_SERVER['REQUEST_METHOD'] == "DELETE")
+{
+
 }
 else
 {
