@@ -74,6 +74,82 @@ elseif ($_SERVER['REQUEST_METHOD'] == "POST")
     {
         Token::auth();
     }
+
+    if ($_GET['url'] == "student")
+    {
+        if (($_GET['student']=="create") && isset($_GET['token']))
+        {
+            $token = $_GET['token'];
+
+            if (Token::compareTokens($token))
+            {
+                $postBody = file_get_contents("php://input");
+                $postBody = json_decode($postBody);
+                print_r($postBody);
+
+                $class_id    = $postBody->class_id;
+                $first_name  = $postBody->first_name;
+                $last_name   = $postBody->last_name;
+
+                $student = new Students();
+
+                $student->class_id   = $class_id;
+                $student->first_name = $first_name;
+                $student->last_name  = $last_name;
+
+                $student->create();
+
+                echo "Successfully add student: " . $student->first_name;
+            }
+            else
+            {
+                http_response_code(405);
+            }
+        }
+        else
+        {
+            echo '{ "Error": "Malformed request" }';
+            http_response_code(400);
+        }
+    }
+}
+elseif ($_SERVER['REQUEST_METHOD'] == "PUT")
+{
+    if ($_GET['url'] == "student")
+    {
+        if (isset($_GET['id']) && isset($_GET['token']))
+        {
+
+            $token = $_GET['token'];
+            $id = $_GET['id'];
+            $student = Students::find_by_id($_GET['id']);
+
+            if ($student && Token::compareTokens($token))
+            {
+                $postBody = file_get_contents("php://input");
+                $postBody = json_decode($postBody);
+                print_r($postBody);
+
+                $class_id = $postBody->class_id;
+                
+                var_dump($student);
+                $student->class_id = $class_id;
+
+                $student->update();
+
+                echo "Successfully replace student: " . $student->first_name;
+            }
+            else
+            {
+                http_response_code(405);
+            }
+        }
+        else
+        {
+            echo '{ "Error": "Malformed request" }';
+            http_response_code(400);
+        }
+    }
 }
 elseif ($_SERVER['REQUEST_METHOD'] == "DELETE")
 {

@@ -17,8 +17,8 @@ class Students extends DatabaseObject
         $sql = "INSERT INTO ".self::$table_name." (";
         $sql .= "class_id, first_name, last_name";
         $sql .= ") VALUES (";
-        $sql .= $database->escape_value($this->class_id) ."', ";
-        $sql .= $database->escape_value($this->first_name) .", '";
+        $sql .= $database->escape_value($this->class_id) .", '";
+        $sql .= $database->escape_value($this->first_name) ."', '";
         $sql .= $database->escape_value($this->last_name) ."')";
         if($database->query($sql)) {
             $this->id = $database->insert_id();
